@@ -7,13 +7,17 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Configuration
 public class BeanConfig {
 
     @Bean
-    public XML producerXML() throws FileNotFoundException {
-        return new XMLDocument(new File("src/main/resources/kafka/producer.xml"));
+    public XML producerXML() throws IOException {
+        return new XMLDocument(
+                getClass().getResourceAsStream("/kafka/producer.xml").readAllBytes()
+        );
+        //return new XMLDocument(new File("src/main/resources/kafka/producer.xml"));
     }
 
 }
